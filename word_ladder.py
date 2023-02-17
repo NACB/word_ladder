@@ -3,6 +3,7 @@
 from collections import deque
 import copy
 
+
 def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
     Returns a list satisfying the following properties:
@@ -18,12 +19,14 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     ```
     may give the output
     ```
-    ['stone', 'shone', 'phone', 'phony', 'peony', 'penny', 'benny', 'bonny', 'boney', 'money']
+    ['stone', 'shone', 'phone', 'phony', 'peony', 'penny',
+    'benny', 'bonny', 'boney', 'money']
     ```
     but the possible outputs are not unique,
     so you may also get the output
     ```
-    ['stone', 'shone', 'shote', 'shots', 'soots', 'hoots', 'hooty', 'hooey', 'honey', 'money']
+    ['stone', 'shone', 'shote', 'shots', 'soots', 'hoots', 'hooty',
+    'hooey', 'honey', 'money']
     ```
     (We cannot use doctests here because the outputs are not unique.)
 
@@ -32,7 +35,7 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
     with open(dictionary_file, 'r') as f:
         working_dict = f.read()
-    
+
     dictionary = list(working_dict.split())
 
     if start_word == end_word:
@@ -44,7 +47,7 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     dictionary.remove(start_word)
     queue = deque([])
     queue.append(stack)
-    
+
     while len(queue) != 0:
         working_stack = queue.popleft()
         for word in dictionary:
@@ -69,13 +72,14 @@ def verify_word_ladder(ladder):
     >>> verify_word_ladder(['stone', 'shone', 'phony'])
     False
     '''
-    
+
     if len(ladder) < 1:
         return False
     for i in range(0, len(ladder) - 1):
         if not _adjacent(ladder[i], ladder[i + 1]):
             return False
     return True
+
 
 def _adjacent(word1, word2):
     '''
@@ -92,8 +96,8 @@ def _adjacent(word1, word2):
         return False
     else:
         dif = 0
-        for i in range(0, len(word1)): 
+        for i in range(0, len(word1)):
             if word1[i] != word2[i]:
                 dif += 1
-            #print("dif=", dif)
+#           print("dif=", dif)
     return dif == 1
