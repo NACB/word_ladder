@@ -44,13 +44,14 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
         return None
     stack = []
     stack.append(start_word)
-    dictionary.remove(start_word)
+#    dictionary.remove(start_word)
     queue = deque([])
     queue.append(stack)
 
     while len(queue) != 0:
         working_stack = queue.popleft()
-        for word in dictionary:
+        dictionary_iterate = copy.copy(dictionary)
+        for word in dictionary_iterate:
             if _adjacent(working_stack[-1], word):
                 if word == end_word:
                     working_stack.append(word)
@@ -60,7 +61,7 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
                 stack1.append(word)
                 queue.append(stack1)
                 dictionary.remove(word)
-
+    return None
 
 def verify_word_ladder(ladder):
     '''
@@ -96,7 +97,7 @@ def _adjacent(word1, word2):
         return False
     else:
         dif = 0
-        for i in range(0, len(word1)):
+        for i in range(len(word1)):
             if word1[i] != word2[i]:
                 dif += 1
 #           print("dif=", dif)
